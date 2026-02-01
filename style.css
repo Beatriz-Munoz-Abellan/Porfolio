@@ -303,11 +303,14 @@ section.exit {
 
 .grid,
 .projects-container {
-    display: grid;
-    width: 80%;
+   display: grid;
+    width: 90%;                    /* un poco más ancho → menos margen lateral */
+    max-width: 1400px;
     margin: 0 auto;
     grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 2.5rem;
+    gap: 1.8rem;                   /* antes 2.5rem → bajamos separación entre tarjetas */
+    margin-bottom: 3rem;           /* antes 40px → algo menos en el fondo */
+    align-items: stretch;
 }
 
 .card,
@@ -319,8 +322,7 @@ section.exit {
     border: 1px solid rgba(168, 85, 247, 0.1);
     transition: var(--transition);
     margin: auto;
-    max-height: 650px;
-    max-width: 650px;
+    
 }
 
 .card:hover,
@@ -337,13 +339,15 @@ section.exit {
 
 /* Project block (izquierda) */
 .project-block {
+   border-radius: 20px;           /* un poco más suave, 24 → 20 */
+    /* quitamos padding general del bloque */
     border: 1px solid var(--primary);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     height: 100%;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);   /* sombra más contenida */
+    transition: var(--transition);
 }
 
 .card-icon {
@@ -360,26 +364,32 @@ section.exit {
 }
 
 .project-info h3 {
-    font-size: 1.6rem;
-    margin-bottom: 0.8rem;
+    font-size: 1.55rem;            /* ligeramente más pequeño */
+    margin: 0 0 0.6rem 0;          /* menos margen inferior */
+    line-height: 1.3;
 }
 
 .project-info{
-        width: 100%;
+    padding: 1rem ;  
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    flex-grow: 1;                  /* ← crece para llenar todo el espacio */
+    width: 100%;
 }
 
 
 .project-info p {
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 0.97rem;            /* 1rem → 0.97rem para ganar algo de espacio */
+    line-height: 1.55;             /* un pelín más compacto que 1.5 */
+    margin: 0 0 1rem 0;          /* menos margen inferior */
     color: var(--text-muted);
-    margin-bottom: 1.5rem;
     flex-grow: 1;
 }
 
 .card-img-container,
 .project-image {
-    width: 100%;
+   width: 100%;
     border-radius: 18px;
     overflow: hidden;
 }
@@ -387,7 +397,7 @@ section.exit {
 
 .card-img-container img,
 .project-image img {
-    width: 100%;
+  width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;

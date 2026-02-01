@@ -66,4 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
         navLinks.classList.toggle("open");
         hamburger.classList.toggle("active");
     });
+
+    
 });
