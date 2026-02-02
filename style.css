@@ -23,13 +23,6 @@
     font-family: var(--font-main);
 }
 
-body.menu-open {
-    overflow: hidden;
-    height: 100vh;
-    touch-action: none;
-}
-
-
 body {
     background-color: var(--bg);
     color: var(--text);
@@ -41,7 +34,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
 /* ─── CUSTOM SCROLLBAR ──────────────────────────────────────── */
 html {
     scrollbar-width: thin;
@@ -129,7 +121,7 @@ header a.active-link {
 header a.active-link::after {
     content: "";
     position: absolute;
-    bottom: 0px;
+    bottom: -6px;
     left: 0;
     width: 100%;
     height: 2px;
@@ -754,17 +746,6 @@ section.exit {
     }
 }
 
-@media (max-width: 768px) {
-    header ul {
-        position: fixed;
-        inset: 0;
-        height: 100dvh; /* evita saltos en móvil */
-        overflow: hidden;
-        overscroll-behavior: contain;
-    }
-}
-
-
 @media (max-width: 640px) {
     header {
         height: 65px;
@@ -806,110 +787,6 @@ section.exit {
     .section-title::after {
         width: 50px;
         height: 3px;
-    }
-    /* GENERAL */
-    body {
-        overflow: auto;
-    }
-
-    section {
-        padding: 1.5rem 5% 4rem;
-    }
-
-    p {
-        max-width: 100%;
-        font-size: 1rem;
-    }
-
-    /* HEADER */
-    header {
-        height: 60px;
-        padding: 0 5%;
-    }
-
-    header a {
-        font-size: 1.1rem;
-    }
-
-    .logo {
-        font-size: 1.2rem;
-    }
-
-    /* HERO */
-    #hero.active {
-        padding-top: 3.5rem;
-        gap: 2rem;
-    }
-
-    #hero h1 {
-        font-size: 2.2rem;
-        line-height: 1.2;
-    }
-
-    #hero p {
-        font-size: 1.05rem;
-    }
-
-    .hero-visual img {
-        max-width: 320px;
-    }
-
-    /* GRIDS / CARDS */
-    .grid,
-    .projects-container {
-        width: 100%;
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-    }
-
-    .card,
-    .project-block {
-        padding: 1.2rem;
-        border-radius: 18px;
-    }
-
-    .project-info h3 {
-        font-size: 1.3rem;
-    }
-
-    .project-info p {
-        font-size: 0.95rem;
-    }
-
-    /* TAGS */
-    .tags {
-        gap: 8px;
-    }
-
-    .tags span {
-        font-size: 0.75rem;
-        padding: 4px 12px;
-    }
-
-    /* SKILLS */
-    .skills-group h3 {
-        font-size: 1.6rem;
-    }
-
-    .skill-pill {
-        font-size: 0.95rem;
-        padding: 0.6rem 1.2rem;
-    }
-
-    /* CONTACT */
-    .contact-form {
-        padding: 1.5rem;
-        border-radius: 18px;
-    }
-
-    .contact-item {
-        font-size: 1rem;
-    }
-
-    /* BUTTONS */
-    .btn {
-        width: 100%;
-        text-align: center;
     }
 }
 

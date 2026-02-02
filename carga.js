@@ -7,15 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeMenu = () => {
         navLinks.classList.remove("open");
         hamburger.classList.remove("active");
-        document.body.classList.remove("menu-open");
-        hamburger.setAttribute("aria-expanded", "false");
-    };
-
-    const openMenu = () => {
-        navLinks.classList.add("open");
-        hamburger.classList.add("active");
-        document.body.classList.add("menu-open");
-        hamburger.setAttribute("aria-expanded", "true");
     };
 
     const navigateTo = (targetId) => {
@@ -39,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         targetSection.classList.add("active");
         targetSection.scrollTop = 0;
 
-        // Actualizar menú activo
+        // Actualizar menú
         document.querySelectorAll(".nav-link").forEach(link => {
             link.classList.remove("active-link");
             if (link.getAttribute("href") === targetId) {
@@ -49,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         window.history.pushState(null, null, targetId);
 
-        // 🔑 cerrar menú al navegar
+        // ←←← CERRAR EL MENÚ al navegar (lo importante)
         closeMenu();
     };
 
@@ -72,7 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Menú hamburguesa
     hamburger.addEventListener("click", () => {
-        const isOpen = navLinks.classList.contains("open");
-        isOpen ? closeMenu() : openMenu();
+        navLinks.classList.toggle("open");
+        hamburger.classList.toggle("active");
     });
+
+    
 });
