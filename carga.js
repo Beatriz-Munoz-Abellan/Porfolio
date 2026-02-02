@@ -71,24 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ==========================================================
        FUNCIONALIDAD: VER MÁS / CERRAR (Proyectos)
        ========================================================== */
-    document.querySelectorAll('.read-more-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const parentP = this.parentElement;
-            const isExpanded = parentP.classList.toggle('expanded');
-            
-            // Cambiamos el texto dinámicamente para mejorar la experiencia
-            if (isExpanded) {
-                this.textContent = " Cerrar";
-            } else {
-                this.textContent = "... Ver más";
-                
-                // Si al cerrar el párrafo el usuario quedó muy abajo, 
-                // hacemos un scroll suave hacia el inicio del bloque del proyecto
-                parentP.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        });
+    document.querySelectorAll('.read-more-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const description = this.previousElementSibling; // El párrafo que está justo antes
+        
+        description.classList.toggle('expanded');
+        
+        if (description.classList.contains('expanded')) {
+            this.textContent = 'Leer menos';
+        } else {
+            this.textContent = 'Leer más';
+        }
     });
+});
 });

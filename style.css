@@ -414,55 +414,45 @@ section.exit {
    PROYECTOS: TRUNCADO DE TEXTO (3 LÍNEAS)
    ========================================================================== */
 
+.project-description-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .description {
     font-size: 0.97rem;
     line-height: 1.6;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    position: relative; /* Necesario para ubicar el botón */
-    
-    /* Truncado */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; 
+    max-height: 4.8em; /* 1.6 * 3 líneas */
     overflow: hidden;
-    max-height: calc(1.6em * 3);
-    transition: max-height 0.4s ease;
+    transition: max-height 0.5s ease;
+    color: var(--text-muted);
     
-    /* Añadimos un pequeño espacio a la derecha en la última línea para el botón */
-    padding-right: 10px; 
+    /* Creamos el efecto de desvanecido al final de las 3 líneas */
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
-/* Cuando el párrafo está expandido */
+/* Cuando se expande */
 .description.expanded {
-    display: block;
-    -webkit-line-clamp: none;
-    max-height: 2000px; /* Suficiente para que se vea todo */
-    padding-bottom: 2rem; /* Espacio para el botón "Cerrar" */
+    max-height: 1000px; /* Suficiente para todo el texto */
+    mask-image: none;
+    -webkit-mask-image: none;
 }
 
-/* El botón Ver Más */
 .read-more-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: var(--bg); /* Fondo sólido para tapar el texto de abajo si coincide */
+    align-self: flex-start; /* Se alinea a la izquierda */
+    background: none;
+    border: none;
+    font-size: 0.97rem;
+
     color: var(--primary-light);
     font-weight: bold;
     cursor: pointer;
-    padding-left: 10px;
-    box-shadow: -10px 0 15px var(--bg); /* Efecto desvanecido para que no choque con el texto */
+    transition: var(--transition);
 }
 
-/* Cuando está expandido, el botón se vuelve relativo para ir al final del texto */
-.description.expanded .read-more-btn {
-    position: relative;
-    display: block;
-    width: fit-content;
-    margin-top: 10px;
-    background: transparent;
-    box-shadow: none;
-    padding-left: 0;
+.read-more-btn:hover {
+    color: var(--primary);
 }
 
 .card-img-container,
