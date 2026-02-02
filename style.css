@@ -16,6 +16,18 @@
     --shadow-purple: 0 10px 30px -10px rgba(168, 85, 247, 0.3);
 }
 
+/* BLOQUEO TOTAL DE SCROLL EXTERNO */
+html, body {
+    margin: 0;
+    color: var(--text);
+    padding: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden !important; 
+    position: fixed; 
+    background-color: var(--bg);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -23,17 +35,6 @@
     font-family: var(--font-main);
 }
 
-body {
-    background-color: var(--bg);
-    color: var(--text);
-    height: 100vh;
-    overflow: hidden;
-    line-height: 1.6;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 /* ─── CUSTOM SCROLLBAR ──────────────────────────────────────── */
 html {
     scrollbar-width: thin;
@@ -704,20 +705,22 @@ section.exit {
 @media (max-width: 768px) {
     /* Permitir scroll en móvil ya que el contenido superará el alto de pantalla */
     body {
-        height: auto;
+height: 100vh;
         overflow-y: auto;
     }
 
     main {
-        height: auto;
-        overflow: visible;
+       height: calc(100vh - 80px);
+        overflow: hidden;
+        position: relative;
     }
 
     section {
-        position: relative; /* Cambiamos de absolute a relative para que fluyan */
+       position: absolute;
+        inset: 0;
+        overflow-y: auto; 
+        -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
         display: none;
-        height: auto;
-        inset: auto;
     }
 
     section.active {
@@ -731,23 +734,26 @@ section.exit {
     }
 
     header ul {
-        position: fixed;
+       position: fixed;
         top: 0;
         right: 0;
         width: 100%;
         height: 100vh;
-background: var(--bg);
+        background: var(--bg);
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
+        /* Para que no se vea nada por el lateral antes de abrir */
+        visibility: hidden; 
         transform: translateX(100%);
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
     }
 
     header ul.open {
         transform: translateX(0);
+        visibility: visible;
         opacity: 1;
-        pointer-events: auto;
+        z-index: 1090;
     }
 
 
