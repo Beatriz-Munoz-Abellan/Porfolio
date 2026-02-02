@@ -221,17 +221,18 @@
                     </div>
                 </div>
 
-                <form class="contact-form">
+                <form id="contactForm" class="contact-form" action="https://script.google.com/macros/s/AKfycbyveQ6Yik0bYkqdpW0rbg4WaL7QPoSS4yelihS0qNvMSQ3xOa0WUFfliBTZmG4Xi2c29w/exec" method="POST">
                     <div class="form-group">
-                        <input type="text" placeholder="Tu Nombre" required>
+                        <input type="text" name="nombre" placeholder="Tu Nombre" required minlength="2">
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Tu Email" required>
+                        <input type="email" name="email" placeholder="Tu Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Tu Mensaje" rows="5" required></textarea>
+                        <textarea name="mensaje" placeholder="Tu Mensaje" rows="5" required ></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Enviar Mensaje</button>
+                    <div id="formMessage" style="margin-top: 15px; font-weight: bold;"></div>
                 </form>
             </div>
         </section>

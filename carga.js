@@ -1,107 +1,128 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Seleccionamos todos los activadores de navegación
-    // Incluimos .nav-link, los botones del hero y cualquier enlace interno (#)
     const links = document.querySelectorAll('.nav-link, .btn-primary[href^="#"], .btn-outline[href^="#"]');
     const hamburger = document.querySelector(".hamburger");
-    const navLinks = document.querySelector("header ul");
+    const navUl = document.querySelector("header ul"); // mejor nombre
 
     const closeMenu = () => {
-        if (navLinks) navLinks.classList.remove("open");
-        if (hamburger) hamburger.classList.remove("active");
+        navUl?.classList.remove("open");
+        hamburger?.classList.remove("active");
     };
 
-    /**
-     * Función principal de navegación
-     * @param {string} targetId - El ID de la sección (ej: "#proyectos")
-     */
     const navigateTo = (targetId) => {
         const id = targetId.replace("#", "");
-        const targetSection = document.getElementById(id);
-        const currentSection = document.querySelector("section.active");
+        const target = document.getElementById(id);
+        if (!target) return;
 
-        // Si la sección no existe o ya es la activa, no hacemos nada
-        if (!targetSection || currentSection === targetSection) return;
+        // Ocultar actual (si existe)
+        document.querySelector("section.active")?.classList.remove("active");
 
-        // --- GESTIÓN DE SALIDA ---
-        if (currentSection) {
-            currentSection.classList.remove("active");
-            currentSection.classList.add("exit");
+        // Mostrar nueva
+        target.classList.add("active");
 
-            // Limpiamos la clase de salida después de que termine la animación (0.6s según tu CSS)
-            setTimeout(() => {
-                currentSection.classList.remove("exit");
-                currentSection.style.display = 'none'; // Aseguramos que no interfiera
-            }, 600);
-        }
+        // Scroll suave al top de la sección (opcional)
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
 
-        // --- GESTIÓN DE ENTRADA ---
-        // Forzamos el display antes de activar la animación
-        targetSection.style.display = (id === 'hero') ? 'flex' : 'block'; 
-        
-        // Pequeño timeout para que el navegador registre el cambio de display antes de la opacidad
-        setTimeout(() => {
-            targetSection.classList.add("active");
-            targetSection.scrollTop = 0;
-        }, 10);
-
-        // --- ACTUALIZAR MENÚ ---
-        document.querySelectorAll(".nav-link").forEach(link => {
-            link.classList.remove("active-link");
-            if (link.getAttribute("href") === targetId) {
-                link.classList.add("active-link");
-            }
+        // Actualizar links activos
+        document.querySelectorAll(".nav-link").forEach(l => {
+            l.classList.toggle("active-link", l.getAttribute("href") === targetId);
         });
 
-        // Actualizar URL sin recargar la página
-        window.history.pushState(null, null, targetId);
+        // History
+        history.pushState(null, "", targetId === "#hero" ? "/" : targetId);
+
         closeMenu();
     };
 
-    // Eventos de clic en los enlaces
+    // Clics en enlaces internos
     links.forEach(link => {
-        link.addEventListener("click", (e) => {
+        link.addEventListener("click", e => {
             const href = link.getAttribute("href");
-            
-            // Si es un enlace interno (empieza por #)
-            if (href && href.startsWith("#")) {
-                const targetEl = document.querySelector(href);
-                if (targetEl) {
-                    e.preventDefault();
-                    navigateTo(href);
-                }
+            if (href?.startsWith("#")) {
+                e.preventDefault();
+                navigateTo(href);
             }
         });
     });
 
-    // Manejo del botón "Atrás" del navegador
+    // Botón atrás/adelante navegador
     window.addEventListener("popstate", () => {
-        const hash = window.location.hash || "#hero";
-        navigateTo(hash);
+        navigateTo(location.hash || "#hero");
     });
 
-    // Carga inicial: Si entran en midominio.com/#contacto, cargar esa sección
-    const initialHash = window.location.hash || "#hero";
-    const initialSection = document.querySelector(initialHash);
-    if (initialSection) {
-        // Ocultamos todas primero
-        document.querySelectorAll('section').forEach(s => s.style.display = 'none');
-        navigateTo(initialHash);
-    }
+    // Carga inicial
+    navigateTo(location.hash || "#hero");
 
-    // Menú hamburguesa (Mobile)
-    if (hamburger) {
-        hamburger.addEventListener("click", () => {
-            navLinks.classList.toggle("open");
-            hamburger.classList.toggle("active");
-        });
-    }
+    // Hamburguesa
+    hamburger?.addEventListener("click", () => {
+        navUl.classList.toggle("open");
+        hamburger.classList.toggle("active");
+    });
 
-    /* --- FUNCIONALIDAD: LEER MÁS --- */
-    document.querySelectorAll('.read-more-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const description = this.previousElementSibling;
-            description.classList.toggle('expanded');
-            this.textContent = description.classList.contains('expanded') ? 'Leer menos' : 'Leer más';
+    // Cerrar menú al clic fuera (mejora UX mobile)
+    document.addEventListener("click", e => {
+        if (!navUl?.contains(e.target) && !hamburger?.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Leer más
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const desc = btn.previousElementSibling;
+            desc.classList.toggle('expanded');
+            btn.textContent = desc.classList.contains('expanded') ? 'Leer menos' : 'Leer más';
         });
     });
+
+    // Formulario de contacto
+const form = document.getElementById('contactForm');
+if (form) {
+    const messageEl = document.getElementById('formMessage');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+
+        messageEl.textContent = '';
+        messageEl.style.color = '';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch('https://script.google.com/macros/s/AKfycbyveQ6Yik0bYkqdpW0rbg4WaL7QPoSS4yelihS0qNvMSQ3xOa0WUFfliBTZmG4Xi2c29w/exec', {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'  // Recomendado para evitar problemas CORS con GAS
+            });
+
+            // Como usamos no-cors, asumimos éxito si no hay error de fetch
+            messageEl.textContent = '¡Mensaje enviado correctamente! Te responderé pronto.';
+            messageEl.style.color = 'green';
+
+            form.reset();
+
+            // Desaparece después de 5 segundos (5000 ms)
+            setTimeout(() => {
+                messageEl.textContent = '';
+                messageEl.style.color = '';
+            }, 5000);
+
+        } catch (err) {
+            messageEl.textContent = 'Error al enviar el mensaje. Inténtalo de nuevo.';
+            messageEl.style.color = 'red';
+
+            // Desaparece después de 6 segundos (un poco más para errores)
+            setTimeout(() => {
+                messageEl.textContent = '';
+                messageEl.style.color = '';
+            }, 5000);
+
+            console.error('Error en formulario:', err);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enviar Mensaje';
+        }
+    });
+}
 });
