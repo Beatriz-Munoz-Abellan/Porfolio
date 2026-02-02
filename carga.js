@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll('.nav-link, .btn-primary[href^="#"], .btn-outline[href^="#"]');
     const hamburger = document.querySelector(".hamburger");
-    const navUl = document.querySelector("header ul"); // mejor nombre
+    const navUl = document.querySelector("header ul"); 
 
     const closeMenu = () => {
         navUl?.classList.remove("open");
@@ -13,13 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const target = document.getElementById(id);
         if (!target) return;
 
-        // Ocultar actual (si existe)
+        // Ocultar actual
         document.querySelector("section.active")?.classList.remove("active");
 
         // Mostrar nueva
         target.classList.add("active");
 
-        // Scroll suave al top de la sección (opcional)
+        // Scroll suave al top de la sección 
         target.scrollIntoView({ behavior: "smooth", block: "start" });
 
         // Actualizar links activos
@@ -75,54 +75,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Formulario de contacto
-const form = document.getElementById('contactForm');
-if (form) {
-    const messageEl = document.getElementById('formMessage');
-    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('contactForm');
+    if (form) {
+        const messageEl = document.getElementById('formMessage');
+        const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', async e => {
-        e.preventDefault();
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
 
-        messageEl.textContent = '';
-        messageEl.style.color = '';
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
+            messageEl.textContent = '';
+            messageEl.style.color = '';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
 
-        try {
-            const formData = new FormData(form);
-            const response = await fetch('https://script.google.com/macros/s/AKfycbyveQ6Yik0bYkqdpW0rbg4WaL7QPoSS4yelihS0qNvMSQ3xOa0WUFfliBTZmG4Xi2c29w/exec', {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'  // Recomendado para evitar problemas CORS con GAS
-            });
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyveQ6Yik0bYkqdpW0rbg4WaL7QPoSS4yelihS0qNvMSQ3xOa0WUFfliBTZmG4Xi2c29w/exec', {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'  // Recomendado para evitar problemas CORS con GAS
+                });
 
-            // Como usamos no-cors, asumimos éxito si no hay error de fetch
-            messageEl.textContent = '¡Mensaje enviado correctamente! Te responderé pronto.';
-            messageEl.style.color = 'green';
+                messageEl.textContent = '¡Mensaje enviado correctamente! Te responderé pronto.';
+                messageEl.style.color = 'green';
 
-            form.reset();
+                form.reset();
 
-            // Desaparece después de 5 segundos (5000 ms)
-            setTimeout(() => {
-                messageEl.textContent = '';
-                messageEl.style.color = '';
-            }, 5000);
+                setTimeout(() => {
+                    messageEl.textContent = '';
+                    messageEl.style.color = '';
+                }, 5000);
 
-        } catch (err) {
-            messageEl.textContent = 'Error al enviar el mensaje. Inténtalo de nuevo.';
-            messageEl.style.color = 'red';
+            } catch (err) {
+                messageEl.textContent = 'Error al enviar el mensaje. Inténtalo de nuevo.';
+                messageEl.style.color = 'red';
 
-            // Desaparece después de 6 segundos (un poco más para errores)
-            setTimeout(() => {
-                messageEl.textContent = '';
-                messageEl.style.color = '';
-            }, 5000);
+                setTimeout(() => {
+                    messageEl.textContent = '';
+                    messageEl.style.color = '';
+                }, 5000);
 
-            console.error('Error en formulario:', err);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Enviar Mensaje';
-        }
-    });
-}
+                console.error('Error en formulario:', err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Enviar Mensaje';
+            }
+        });
+    }
 });

@@ -17,14 +17,15 @@
 }
 
 /* BLOQUEO TOTAL DE SCROLL EXTERNO */
-html, body {
+html,
+body {
     margin: 0;
     color: var(--text);
     padding: 0;
     width: 100%;
-    height: 100%; 
-    overflow: hidden !important; 
-    position: fixed; 
+    height: 100%;
+    overflow: hidden !important;
+    position: fixed;
     background-color: var(--bg);
 }
 
@@ -164,9 +165,11 @@ header a.active-link::after {
 .hamburger.active span:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
 }
+
 .hamburger.active span:nth-child(2) {
     opacity: 0;
 }
+
 .hamburger.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
 }
@@ -335,13 +338,13 @@ section.exit {
 
 .grid,
 .projects-container {
-   display: grid;
-    width: 90%;                    /* un poco más ancho → menos margen lateral */
+    display: grid;
+    width: 90%;
     max-width: 1400px;
     margin: 0 auto;
     grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 1.8rem;                   /* antes 2.5rem → bajamos separación entre tarjetas */
-    margin-bottom: 3rem;           /* antes 40px → algo menos en el fondo */
+    gap: 1.8rem;
+    margin-bottom: 3rem;
     align-items: stretch;
 }
 
@@ -354,7 +357,7 @@ section.exit {
     border: 1px solid rgba(168, 85, 247, 0.1);
     transition: var(--transition);
     margin: auto;
-    
+
 }
 
 .card:hover,
@@ -371,14 +374,13 @@ section.exit {
 
 /* Project block (izquierda) */
 .project-block {
-   border-radius: 20px;           /* un poco más suave, 24 → 20 */
-    /* quitamos padding general del bloque */
+    border-radius: 20px;
     border: 1px solid var(--primary);
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);   /* sombra más contenida */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     transition: var(--transition);
 }
 
@@ -396,17 +398,17 @@ section.exit {
 }
 
 .project-info h3 {
-    font-size: 1.55rem;            /* ligeramente más pequeño */
-    margin: 0 0 0.6rem 0;          /* menos margen inferior */
+    font-size: 1.55rem;
+    margin: 0 0 0.6rem 0;
     line-height: 1.3;
 }
 
-.project-info{
-    padding: 1rem ;  
+.project-info {
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    flex-grow: 1;                  /* ← crece para llenar todo el espacio */
+    flex-grow: 1;
     width: 100%;
 }
 
@@ -423,25 +425,23 @@ section.exit {
 .description {
     font-size: 0.97rem;
     line-height: 1.6;
-    max-height: 4.8em; /* 1.6 * 3 líneas */
+    max-height: 4.8em;
     overflow: hidden;
     transition: max-height 0.5s ease;
     color: var(--text-muted);
-    
-    /* Creamos el efecto de desvanecido al final de las 3 líneas */
     mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
 /* Cuando se expande */
 .description.expanded {
-    max-height: 1000px; /* Suficiente para todo el texto */
+    max-height: 1000px;
     mask-image: none;
     -webkit-mask-image: none;
 }
 
 .read-more-btn {
-    align-self: flex-start; /* Se alinea a la izquierda */
+    align-self: flex-start;
     background: none;
     border: none;
     font-size: 0.97rem;
@@ -458,7 +458,7 @@ section.exit {
 
 .card-img-container,
 .project-image {
-   width: 100%;
+    width: 100%;
     border-radius: 18px;
     overflow: hidden;
 }
@@ -466,7 +466,7 @@ section.exit {
 
 .card-img-container img,
 .project-image img {
-  width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
@@ -681,10 +681,6 @@ section.exit {
 }
 
 /* ==========================================================================
-   10. MENÚ HAMBURGUESA + RESPONSIVE
-   ========================================================================== */
-
-   /* ==========================================================================
    10. RESPONSIVE DESIGN ADAPTATIONS
    ========================================================================== */
 
@@ -692,34 +688,37 @@ section.exit {
     header {
         padding: 0 5%;
     }
-    
-    #hero, .skills-group, #contacto {
+
+    #hero,
+    .skills-group,
+    #contacto {
         padding: 2rem 5% 5rem;
     }
 
-    .grid, .projects-container {
+    .grid,
+    .projects-container {
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    /* Permitir scroll en móvil ya que el contenido superará el alto de pantalla */
+
     body {
-height: 100vh;
+        height: 100vh;
         overflow-y: auto;
     }
 
     main {
-       height: calc(100vh - 80px);
+        height: calc(100vh - 80px);
         overflow: hidden;
         position: relative;
     }
 
     section {
-       position: absolute;
+        position: absolute;
         inset: 0;
-        overflow-y: auto; 
-        -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         display: none;
     }
 
@@ -734,7 +733,7 @@ height: 100vh;
     }
 
     header ul {
-       position: fixed;
+        position: fixed;
         top: 0;
         right: 0;
         width: 100%;
@@ -743,8 +742,7 @@ height: 100vh;
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
-        /* Para que no se vea nada por el lateral antes de abrir */
-        visibility: hidden; 
+        visibility: hidden;
         transform: translateX(100%);
         transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
     }
@@ -756,14 +754,13 @@ height: 100vh;
     }
 
 
-     .hamburger {
+    .hamburger {
         display: flex;
     }
 
     header a {
         font-size: 1.3rem;
     }
-    
 
     /* Hero Section - Apilado vertical */
     #hero.active {
@@ -790,8 +787,10 @@ height: 100vh;
     }
 
     /* Grid de Proyectos */
-    .grid, .projects-container {
-        grid-template-columns: 1fr; /* Una columna en móvil */
+    .grid,
+    .projects-container {
+        grid-template-columns: 1fr;
+        /* Una columna en móvil */
         width: 95%;
     }
 
