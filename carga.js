@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const links = document.querySelectorAll(".nav-link, .btn-primary, .btn-outline");
-
     const hamburger = document.querySelector(".hamburger");
     const navLinks = document.querySelector("header ul");
 
     const closeMenu = () => {
-        navLinks.classList.remove("open");
-        hamburger.classList.remove("active");
+        if (navLinks) navLinks.classList.remove("open");
+        if (hamburger) hamburger.classList.remove("active");
     };
 
     const navigateTo = (targetId) => {
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         targetSection.classList.add("active");
         targetSection.scrollTop = 0;
 
-        // Actualizar menú
+        // Actualizar menú activo
         document.querySelectorAll(".nav-link").forEach(link => {
             link.classList.remove("active-link");
             if (link.getAttribute("href") === targetId) {
@@ -39,11 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         window.history.pushState(null, null, targetId);
-
-        // ←←← CERRAR EL MENÚ al navegar (lo importante)
         closeMenu();
     };
 
+    // Eventos de navegación
     links.forEach(link => {
         link.addEventListener("click", (e) => {
             const href = link.getAttribute("href");
@@ -54,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Manejo del botón atrás del navegador
     window.addEventListener("popstate", () => {
         navigateTo(window.location.hash || "#hero");
     });
@@ -61,11 +60,35 @@ document.addEventListener("DOMContentLoaded", () => {
     // Carga inicial
     navigateTo(window.location.hash || "#hero");
 
-    // Menú hamburguesa
-    hamburger.addEventListener("click", () => {
-        navLinks.classList.toggle("open");
-        hamburger.classList.toggle("active");
-    });
+    // Menú hamburguesa (Mobile)
+    if (hamburger) {
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("open");
+            hamburger.classList.toggle("active");
+        });
+    }
 
-    
+    /* ==========================================================
+       FUNCIONALIDAD: VER MÁS / CERRAR (Proyectos)
+       ========================================================== */
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const parentP = this.parentElement;
+            const isExpanded = parentP.classList.toggle('expanded');
+            
+            // Cambiamos el texto dinámicamente para mejorar la experiencia
+            if (isExpanded) {
+                this.textContent = " Cerrar";
+            } else {
+                this.textContent = "... Ver más";
+                
+                // Si al cerrar el párrafo el usuario quedó muy abajo, 
+                // hacemos un scroll suave hacia el inicio del bloque del proyecto
+                parentP.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+    });
 });

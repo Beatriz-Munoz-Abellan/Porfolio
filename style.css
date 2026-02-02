@@ -410,12 +410,59 @@ section.exit {
 }
 
 
-.project-info p {
-    font-size: 0.97rem;            /* 1rem → 0.97rem para ganar algo de espacio */
-    line-height: 1.55;             /* un pelín más compacto que 1.5 */
-    margin: 0 0 1rem 0;          /* menos margen inferior */
+/* ==========================================================================
+   PROYECTOS: TRUNCADO DE TEXTO (3 LÍNEAS)
+   ========================================================================== */
+
+.description {
+    font-size: 0.97rem;
+    line-height: 1.6;
     color: var(--text-muted);
-    flex-grow: 1;
+    margin-bottom: 1rem;
+    position: relative; /* Necesario para ubicar el botón */
+    
+    /* Truncado */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+    overflow: hidden;
+    max-height: calc(1.6em * 3);
+    transition: max-height 0.4s ease;
+    
+    /* Añadimos un pequeño espacio a la derecha en la última línea para el botón */
+    padding-right: 10px; 
+}
+
+/* Cuando el párrafo está expandido */
+.description.expanded {
+    display: block;
+    -webkit-line-clamp: none;
+    max-height: 2000px; /* Suficiente para que se vea todo */
+    padding-bottom: 2rem; /* Espacio para el botón "Cerrar" */
+}
+
+/* El botón Ver Más */
+.read-more-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--bg); /* Fondo sólido para tapar el texto de abajo si coincide */
+    color: var(--primary-light);
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 10px;
+    box-shadow: -10px 0 15px var(--bg); /* Efecto desvanecido para que no choque con el texto */
+}
+
+/* Cuando está expandido, el botón se vuelve relativo para ir al final del texto */
+.description.expanded .read-more-btn {
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin-top: 10px;
+    background: transparent;
+    box-shadow: none;
+    padding-left: 0;
 }
 
 .card-img-container,
