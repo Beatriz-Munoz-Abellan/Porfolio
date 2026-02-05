@@ -528,7 +528,7 @@ margin: auto;
     font-weight: 700;
 }
 
-.skills-container {}
+.skills-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
